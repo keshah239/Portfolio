@@ -1,0 +1,1783 @@
+{
+	"info": {
+		"_postman_id": "cc605343-daf2-4ef9-a0f0-cc426f450cbb",
+		"name": "Renue API Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20335708",
+		"_collection_link": "https://dark-water-938288.postman.co/workspace/STCH~8a684634-b89d-46b8-9991-1f7e4d20cb0f/collection/20335708-cc605343-daf2-4ef9-a0f0-cc426f450cbb?action=share&source=collection_link&creator=20335708"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "[AUTH] Authorization Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"user\",\r\n  \"password\": \"user\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/authenticate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[AUTH] Authorization Token (An empty username and password)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"\",\r\n  \"password\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/authenticate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[AUTH] Authorization Token (Invalid username or password)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"wrong_user\",\r\n  \"password\": \"wrong_pass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/authenticate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Organization CRUD",
+			"item": [
+				{
+					"name": "1. Checking required fields",
+					"item": [
+						{
+							"name": "1.1 No parameter",
+							"item": [
+								{
+									"name": "[ORG] Create Organization - Missing 'name' parameter",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"inn\": \"1234567890\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Обязательная, 2\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Алексей\",\r\n      \"lastName\": \"Сидоров\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - missing 'INN' parameter",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"ООО Ромашка\",\r\n  \"ogrn\": \"1072072854002\",\r\n  \"address\": \"ул. Ленина, 1\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Петр\",\r\n      \"lastName\": \"Петров\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - missing 'OGRN' parameter",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Новая 3 тестовая организация\",\r\n  \"inn\": \"1234567896\",\r\n  \"address\": \"ул. Тестовая, 3\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Климов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization  - missing 'address' parameter",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Организация с очень длинным названием ровно в 100 символов, чтобы проверить валидацию на стороне сер\",\r\n  \"inn\": \"1231567822\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization -  missing 'head.firstName' parameter",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Организация с очень длинным названием ровно в 100 символов, чтобы проверить валидацию на стороне сер\",\r\n  \"inn\": \"1234567822\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 4\",\r\n  \"head\": [\r\n    {\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - missing 'head.lastName' parameter",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Организация с очень длинным названием ровно в 100 символов, чтобы проверить валидацию на стороне сер\",\r\n  \"inn\": \"1234567822\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 4\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Ваня\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "1.2 Empty values",
+							"item": [
+								{
+									"name": "[ORG] Create Organization - invalid 'INN' parameter (empty value)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"ООО Ромашка\",\r\n  \"inn\": \"\",\r\n  \"ogrn\": \"1072072854002\",\r\n  \"address\": \"ул. Ленина, 1\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Петр\",\r\n      \"lastName\": \"Петров\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - invalid 'OGRN' parameter (empty value)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Новая 3 тестовая организация\",\r\n  \"inn\": \"1234567896\",\r\n  \"ogrn\": \"\",\r\n  \"address\": \"ул. Тестовая, 3\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Климов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - invalid 'address' parameter (empty value)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Организация с очень длинным названием ровно в 100 символов, чтобы проверить валидацию на стороне сер\",\r\n  \"inn\": \"1234567822\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - nvalid 'name' parameter (empty value)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"\",\r\n  \"inn\": \"1234567890\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 1\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - invalid 'head.firstName' parameter (empty value)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Организация с очень длинным названием ровно в 100 символов, чтобы проверить валидацию на стороне сер\",\r\n  \"inn\": \"1234567822\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 4\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization -   invalid 'phone' parameter (empty value)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Тестовая организация\",\r\n  \"inn\": \"1234567898\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 1\",\r\n  \"phone\": \"\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - invalid 'head.middleName' parameter (empty value)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Тестовая организация\",\r\n  \"inn\": \"1234567290\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 1\",\r\n  \"phone\": \"+79123456789\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"MiddleName\": \"\"\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - invalid 'head' parameter (empty, no elements provided)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Организация с очень длинным названием ровно в 100 символов, чтобы проверить валидацию на стороне сер\",\r\n  \"inn\": \"1234567822\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 4\",\r\n  \"head\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization -  invalid 'head.lastName' parameter (empty value)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Организация с очень длинным названием ровно в 100 символов, чтобы проверить валидацию на стороне сер\",\r\n  \"inn\": \"1234567822\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 4\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Ваня\",\r\n      \"lastName\": \"\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "2. Checking field lengths",
+					"item": [
+						{
+							"name": "2.1 Name field",
+							"item": [
+								{
+									"name": "[ORG] Create Organization - valid 'name' parameter (max 100 characters)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Организация с очень длинным названием ровно в 100 символов, чтобы проверить валидацию на стороне сер\",\r\n  \"inn\": \"1234567822\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 4\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - invalid 'name' parameter (101 characters, exceeds limit)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Организация с названием длиной 101 символ, что явно превышает установленный лимит в 100 символов для данного поля в API\",\r\n  \"inn\": \"1234567890\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 1\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "2.2 INN field",
+							"item": [
+								{
+									"name": "[ORG] Create Organization - invalid 'INN' parameter (3 characters)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"ООО Ромашка\",\r\n  \"inn\": \"123\",\r\n  \"ogrn\": \"1072072854002\",\r\n  \"address\": \"ул. Ленина, 1\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Петр\",\r\n      \"lastName\": \"Петров\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - invalid 'INN' parameter (11 characters)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"ООО Ромашка\",\r\n  \"inn\": \"12345678913\",\r\n  \"ogrn\": \"1072072854002\",\r\n  \"address\": \"ул. Ленина, 1\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Петр\",\r\n      \"lastName\": \"Петров\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - invalid 'INN' parameter (13 characters)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"ООО Ромашка\",\r\n  \"inn\": \"1234567891333\",\r\n  \"ogrn\": \"1072072854002\",\r\n  \"address\": \"ул. Ленина, 1\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Петр\",\r\n      \"lastName\": \"Петров\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - valid 'INN' parameter (12 characters)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"ООО Ромашка\",\r\n  \"inn\": \"123456789132\",\r\n  \"ogrn\": \"1072072854002\",\r\n  \"address\": \"ул. Ленина, 1\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Петр\",\r\n      \"lastName\": \"Петров\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - valid 'INN' parameter (10 characters)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"ООО Ромашка\",\r\n  \"inn\": \"1234567893\",\r\n  \"ogrn\": \"1072072854002\",\r\n  \"address\": \"ул. Ленина, 1\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Петр\",\r\n      \"lastName\": \"Петров\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "2.3 OGRN field",
+							"item": [
+								{
+									"name": "[ORG] Create Organization - invalid 'OGRN' parameter (9 characters)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Новая 3 тестовая организация\",\r\n  \"inn\": \"1234567898\",\r\n  \"ogrn\": \"123456789\",\r\n  \"address\": \"ул. Тестовая, 3\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Климов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - invalid 'OGRN' parameter (14 characters)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Новая 3 тестовая организация\",\r\n  \"inn\": \"1234567895\",\r\n  \"ogrn\": \"12345678901292\",\r\n  \"address\": \"ул. Тестовая, 3\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Климов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - valid 'OGRN' parameter (13 characters)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Новая 3 тестовая организация\",\r\n  \"inn\": \"1234567836\",\r\n  \"ogrn\": \"1234567890122\",\r\n  \"address\": \"ул. Тестовая, 3\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Климов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "2.4 address field",
+							"item": [
+								{
+									"name": "[ORG] Create Organization - invalid 'address' parameter (2000 characters, exceeds limit)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Генерируем строку из 2000 символов 'A'\r",
+													"const longAddress = 'A'.repeat(2000); \r",
+													"\r",
+													"// Формируем тело запроса\r",
+													"const requestBody = {\r",
+													"  \"name\": \"Организация с очень длинным названием ровно\",\r",
+													"  \"inn\": \"1234567121\",\r",
+													"  \"ogrn\": \"1234567890123\",\r",
+													"  \"address\": longAddress,\r",
+													"  \"head\": [\r",
+													"    {\r",
+													"      \"firstName\": \"Иван\",\r",
+													"      \"lastName\": \"Иванов\"\r",
+													"    }\r",
+													"  ]\r",
+													"};\r",
+													"\r",
+													"// Устанавливаем сгенерированные данные в тело запроса (для методов POST/PUT)\r",
+													"pm.environment.set(\"requestBody\", JSON.stringify(requestBody));"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "2.5 phone field",
+							"item": [
+								{
+									"name": "[ORG] Create Organization - invalid 'phone' parameter (16 characters, wrong format)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Тестовая организация\",\r\n  \"inn\": \"1232567311\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 1\",\r\n  \"phone\": \"7912345678958674\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - invalid 'phone' parameter (9 characters, wrong format)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Тестовая организация\",\r\n  \"inn\": \"1232567311\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 1\",\r\n  \"phone\": \"791234567\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - invalid 'phone' parameter (11 characters with spaces, wrong format)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Тестовая организация\",\r\n  \"inn\": \"1232567311\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 1\",\r\n  \"phone\": \"791234567 8\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "2.6 head subobject",
+							"item": [
+								{
+									"name": "[ORG] Create Organization -  valid 'head.firstName' parameter (max 60 characters)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Организация с очень длинным названием ровно в 100 символов, чтобы проверить валидацию на стороне сер\",\r\n  \"inn\": \"1234567822\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 4\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иваноараоаоаоаоаоаоаоаоаоаоаоаоаододывлаоывдлаодыловолдодлол\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - valid 'head.lastName' parameter (max 60 characters)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Организация с очень длинным названием ровно в 100 символов, чтобы проверить валидацию на стороне сер\",\r\n  \"inn\": \"1234567822\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 4\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Иваноараоаоаоаоаоаоаоаоаоаоаоаоаододывлаоывдлаодыловолдодлол\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - invalid 'head.firstName' parameter (61 characters, exceeds limit)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Организация с очень длинным названием ровно в 100 символов, чтобы проверить валидацию на стороне сер\",\r\n  \"inn\": \"1234567822\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 4\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иваноараоаоаоаоаоаоаоаоаоаоаоаоаододывлаоывдлаодыловолдодлоло\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - invalid 'head.middleName' parameter (61 characters, exceeds limit)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Тестовая организация\",\r\n  \"inn\": \"1234567290\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 1\",\r\n  \"phone\": \"+79123456789\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Иванов\"\r\n      \"middleName\": \"Иваноараоаоаоаоаоаоаоаоаоаоаоаоаододывлаоывдлаодыловолдодлола\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization -  invalid 'head.lastName' parameter (61 characters, exceeds limit)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Организация с очень длинным названием ровно в 100 символов, чтобы проверить валидацию на стороне сер\",\r\n  \"inn\": \"1234567822\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 4\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Ваня\",\r\n      \"lastName\": \"Иваноараоаоаоаоаоаоаоаоаоаоаоаоаододывлаоывдлаодыловолдодлоло\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "3. Checking the format and data type",
+					"item": [
+						{
+							"name": "3.1 INN field",
+							"item": [
+								{
+									"name": "[ORG] Create Organization - invalid 'INN' parameter (contains letters)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"ООО Ромашка\",\r\n  \"inn\": \"12345sf89133\",\r\n  \"ogrn\": \"1072072854002\",\r\n  \"address\": \"ул. Ленина, 1\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Петр\",\r\n      \"lastName\": \"Петров\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - invalid 'INN' parameter (contains spaces)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Test Org\",\r\n  \"inn\": \"1234 56786\",\r\n  \"ogrn\": \"1234567893129\",\r\n  \"address\": \"ул. Тестовая, 3\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Климов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "3.2 OGRN field",
+							"item": [
+								{
+									"name": "[ORG] Create Organization - invalid 'OGRN' parameter (contains spaces)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Новая 3 тестовая организация\",\r\n  \"inn\": \"1234567896\",\r\n  \"ogrn\": \"123456 789 0129\",\r\n  \"address\": \"ул. Тестовая, 3\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Климов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - invalid 'OGRN' parameter (contains letters)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Новая 3 тестовая организация\",\r\n  \"inn\": \"1234567896\",\r\n  \"ogrn\": \"123jd4567890129\",\r\n  \"address\": \"ул. Тестовая, 3\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Климов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "3.3 phone field",
+							"item": [
+								{
+									"name": "[ORG] Create Organization - valid 'phone' parameter (starts with +7)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Тестовая организация\",\r\n  \"inn\": \"1234567290\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 1\",\r\n  \"phone\": \"+79123456789\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization -  valid 'phone' parameter (starts with 7)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Тестовая организация\",\r\n  \"inn\": \"1234567311\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 1\",\r\n  \"phone\": \"89123456789\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - valid 'phone' parameter (starts with 8)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Тестовая организация\",\r\n  \"inn\": \"1232567311\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 1\",\r\n  \"phone\": \"79123456789\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "[ORG] Create Organization - invalid 'phone' parameter (contains letters)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Тестовая организация\",\r\n  \"inn\": \"1234567898\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 1\",\r\n  \"phone\": \"телефон\",\r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "3.4 Head structure",
+							"item": [
+								{
+									"name": "[ORG] Create Organization - invalid 'head' parameter (incorrect type: object instead of array)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Организация с очень длинным названием ровно в 100 символов, чтобы проверить валидацию на стороне сер\",\r\n  \"inn\": \"1234567822\",\r\n  \"ogrn\": \"1234567890123\",\r\n  \"address\": \"ул. Тестовая, 4\",\r\n  \"head\": {\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Иванов\"\r\n    }\r\n  }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/de/organization",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"de",
+												"organization"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "[ORG] Create Organization - Success (Valid Data)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Новая 3 тестовая организация\",\r\n  \"inn\": \"1234567896\",\r\n  \"ogrn\": \"1234567890129\",\r\n  \"address\": \"ул. Тестовая, 3\",\r\n  \"phone\": \"+79123456789\", \r\n  \"head\": [\r\n    {\r\n      \"firstName\": \"Иван\",\r\n      \"lastName\": \"Климов\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/de/organization",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"de",
+								"organization"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[ORG] Organization by ID - Success",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/de/organization/7e83ff55-7612-4647-8fa4-c22608559a4a",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"de",
+								"organization",
+								"7e83ff55-7612-4647-8fa4-c22608559a4a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
